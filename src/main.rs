@@ -4,15 +4,14 @@ static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 mod cached_faidx;
 mod processor;
 mod lua_filter;
+mod par_granges;
+mod position;
 
 use anyhow::Result;
 use clap::Parser;
 use processor::BasicProcessor;
 use mlua::prelude::*;
 use mlua::Function;
-use perbase_lib::{
-    par_granges,
-};
 use std::path::PathBuf;
 
 pub struct PileupPositionWithBases {
@@ -198,7 +197,7 @@ mod tests {
     use rust_htslib::bam::record::Record;
     use rust_htslib::bam::{header::HeaderRecord, Header, HeaderView, IndexedReader, Read};
     use tempfile::NamedTempFile;
-    use perbase_lib::read_filter::ReadFilter;
+    use crate::lua_filter::ReadFilter;
 
     #[test]
     fn test_read_bq() -> Result<()> {

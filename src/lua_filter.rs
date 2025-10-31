@@ -1,7 +1,12 @@
 use anyhow::Result;
 use mlua::{Lua, Function, UserDataFields, UserDataMethods};
 use rust_htslib::bam::{record::{Aux, Cigar, Record}, pileup::Alignment};
-use perbase_lib::read_filter::ReadFilter;
+
+/// Anything that implements ReadFilter can apply a filter set to read.
+pub trait ReadFilter {
+    /// filters a read, true is pass, false if fail
+    fn filter_read(&self, read: &Record, alignment: Option<&Alignment>) -> bool;
+}
 
 pub struct LuaReadFilter<'a> {
     pub(crate) lua: &'a Lua,
