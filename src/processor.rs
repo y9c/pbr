@@ -3,7 +3,7 @@ use bio::io::bed;
 use rust_htslib::bam::{pileup::Pileup, HeaderView, self, Read};
 use rust_lapper::{Interval, Lapper};
 use mlua::Lua;
-use perbase_lib::{
+use crate::{
     par_granges::RegionProcessor,
     position::pileup_position::PileupPosition,
 };
